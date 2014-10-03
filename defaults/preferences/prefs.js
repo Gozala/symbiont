@@ -28,3 +28,6 @@ pref("general.smoothScroll", true);
 
 pref("devtools.debugger.remote-enabled", true);
 pref("devtools.debugger.force-local", true);
+
+// Temporarily disable connection promt
+pref("devtools.debugger.prompt-connection", false);
