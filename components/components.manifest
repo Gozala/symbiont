@@ -1,0 +1,3 @@
+component {6d69c782-40a3-469b-8bfd-3ee366105a4a} CommandLineHandler.js
+contract @mozilla.org/symbiont/clh;1 {6d69c782-40a3-469b-8bfd-3ee366105a4a}
+category command-line-handler x-default @mozilla.org/symbiont/clh;1
