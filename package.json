@@ -1,0 +1,31 @@
+{
+  "name": "symbiont",
+  "description": "Browser that works in symbiosis with your work flow",
+  "version": "0.0.0",
+  "keywords": [
+    "symbiont",
+    "browser",
+    "integrate",
+    "firefox"
+  ],
+  "homepage": "https://github.com/Gozala/symbiont",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gozala/symbiont.git",
+    "web": "https://github.com/Gozala/symbiont"
+  },
+  "bugs": {
+    "url": "http://github.com/Gozala/symbiont/issues/"
+  },
+  "scripts": {
+    "start": "open -n -a FirefoxNightly --args -app $(pwd)/application.ini",
+    "debug": "open -n -a FirefoxNightly --args -app $(pwd)/application.ini -debug 6000"
+  },
+  "licenses": [
+    {
+      "type": "MPL",
+      "version": "2.0",
+      "url": "http://mozilla.org/MPL/2.0/"
+    }
+  ]
+}
