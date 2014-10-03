@@ -19,7 +19,7 @@ this.RemoteDebugger = {
     if (!DebuggerServer.initialized) {
       DebuggerServer.init();
       DebuggerServer.addBrowserActors("webapprt:webapp");
-      DebuggerServer.addActors("chrome://symbiont/content/dbg-webapp-actors.js");
+      DebuggerServer.addActors("resource://symbiont/modules/dbg-webapp-actors.js");
     }
     DebuggerServer.openListener(port);
   }
