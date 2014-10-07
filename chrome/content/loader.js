@@ -4,7 +4,7 @@
 
 "use strict";
 
-const { Loader } = Components.utils.import("resource://gre/modules/commonjs/toolkit/loader.js", {});
+var { Loader } = Components.utils.import("resource://gre/modules/commonjs/toolkit/loader.js", {});
 const loader = Loader.Loader({
   id: "symbiont",
   isNative: true,

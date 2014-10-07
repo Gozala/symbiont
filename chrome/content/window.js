@@ -78,6 +78,11 @@ var Window = React.createClass({
       window.moveTo(this.state.position[0],
                     this.state.position[1])
     }
+
+    document.title = this.props.title
+  },
+  componentDidUpdate: function() {
+    document.title = this.props.title
   },
   componentWillUnmount: function() {
     // TODO: Update to standard API once implemented

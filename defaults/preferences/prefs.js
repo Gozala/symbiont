@@ -34,3 +34,6 @@ pref("devtools.debugger.prompt-connection", false);
 
 // Enable mozbrowser for iframe
 pref("dom.mozBrowserFramesEnabled", true);
+
+// Disable titlebar
+pref("browser.tabs.drawInTitlebar", true);

@@ -38,3 +38,63 @@ body
 {
   display: none;
 }
+
+.address-bar
+{
+  border-radius: 4px;
+  border: none;
+  flex: 4;
+  font-size: 13px;
+  padding: 5px 15px;
+}
+
+.navigation-controls
+{
+  flex: 2;
+}
+
+.display-controls
+{
+  flex: 3;
+}
+
+#title-bar {
+  -moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
+}
+
+#title-bar
+{
+  display: flex;
+  align-items: center;
+  -moz-appearance: -moz-window-titlebar;
+  -moz-window-dragging: drag;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+#title-bar-buttons
+{
+  width: 70px;
+  padding: 0;
+  margin: 0;
+}
+
+#title-bar-button-box {
+  -moz-appearance: -moz-window-button-box;
+}
+
+#title-bar-min {
+   -moz-appearance: -moz-window-button-minimize;
+}
+#title-bar-max {
+   -moz-appearance: -moz-window-button-maximize;
+ }
+
+:root[sizemode="maximized"] #title-bar-max {
+   -moz-appearance: -moz-window-button-restore;
+ }
+
+#title-bar-close {
+   -moz-appearance: -moz-window-button-close;
+}

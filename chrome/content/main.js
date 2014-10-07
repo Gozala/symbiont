@@ -19,10 +19,10 @@ var Browser = React.createClass({
     frame.setAttribute("name", "symbiont");
     frame.setAttribute("src", this.state.uri);
 
-    //frame.setAttribute("mozallowfullscreen", true);
+    frame.setAttribute("mozallowfullscreen", true);
     frame.setAttribute("mozbrowser", true);
     //frame.setAttribute("remote", true);
-    //frame.setAttribute("mozasyncpanzoom", true);
+    frame.setAttribute("mozasyncpanzoom", true);
 
     frame.addEventListener("mozbrowserloadstart", this.onPageLoadStart);
     frame.addEventListener("mozbrowserloadend", this.onPageLoadEnd);
@@ -64,56 +64,55 @@ var Browser = React.createClass({
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
   onPageLoadEnd: function(event) {
     var handler = this.props.onPageLoadEnd
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
   onPageClose: function(event) {
     var handler = this.props.onPageClose
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
   onPageOpen: function(event) {
     var handler = this.props.onPageOpen
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
   onPageScroll: function(event) {
     var handler = this.props.onPageScroll
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
   onPageError: function(event) {
     var handler = this.props.onPageError
     if (handler) {
       handler(event)
     }
-    console.error(event);
+    // console.error(event);
   },
   onPageDialog: function(event) {
     var handler = this.props.onPageDialog
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
   onLocationChange: function(event) {
-    this.setState({ uri: event.detail });
-
+    this.setState({ uri: event.detail })
     var handler = this.props.onLocationChange
     if (handler) {
-      handler(event)
+      handler(this.state.uri)
     }
   },
   onIconChange: function(event) {
@@ -121,28 +120,28 @@ var Browser = React.createClass({
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
   onTitleChange: function(event) {
     var handler = this.props.onTitleChange
     if (handler) {
-      handler(event)
+      handler(event.detail)
     }
-    console.log(event)
+    // console.log(event)
   },
   onContextMenu: function(event) {
     var handler = this.props.onContextMenu
     if (handler) {
       handler(event)
     }
-    console.log(event)
+    // console.log(event)
   },
 
   componentWillReceiveProps: function(props) {
-    this.setState({ uri: props.uri });
+    this.setState({uri: props.uri});
   },
   shouldComponentUpdate: function(nextProps, nextState) {
-    return this.state.uri !== nextState.uri
+    return this.state.uri !== nextProps.uri
   },
   componentDidUpdate: function(pastProps, pastState) {
     var frame = this.getFrameNode();
@@ -159,6 +158,12 @@ var AddressBar = React.createClass({
     return { input: this.props.uri }
   },
 
+  componentWillReceiveProps: function(props) {
+    if (props.uri !== this.state.uri) {
+      this.setState({ input:props.uri})
+    }
+  },
+
   navigateTo: function(uri) {
     this.props.onNavigate(uri)
   },
@@ -173,6 +178,7 @@ var AddressBar = React.createClass({
   render: function() {
     return DOM.input({
       type: "text",
+      className: "address-bar",
       value: this.state.input,
       onChange: this.onChange,
       onKeyDown: this.onKey
@@ -183,20 +189,43 @@ exports.AddressBar = AddressBar;
 
 var App = React.createClass({
   getInitialState: function() {
-    return {uri: "about:blank"}
+    return {title: "Symbiont",
+            uri: "about:blank"}
   },
-  onNavigate: function(uri) {
-    this.setState({ uri: uri });
+  onTitleChange: function(title) {
+    this.setState({title: title,
+                   uri: this.state.uri})
+  },
+  onNavigate: function(input) {
+    var uri = /^\S+\:/.test(input) ? input : "http://" + input
+    this.setState({title: this.state.title,
+                   uri: uri});
   },
   render: function() {
-    return Window({children: [
-      AddressBar({onNavigate: this.onNavigate,
-                  uri: this.state.uri}),
-      Browser({uri: this.state.uri})
-    ]});
+    return Window({
+      title: this.state.title,
+      children: [
+        DOM.menu({id: "title-bar"}, [
+          DOM.menu({id: "title-bar-buttons"}, [
+            DOM.menu({id: "title-bar-button-box"}, [
+              DOM.button({id: "title-bar-close", className: "nil"}),
+              DOM.button({id: "title-bar-min", className: "nil"}),
+              DOM.button({id: "title-bar-max", className: "nil"})
+            ]),
+          ]),
+          DOM.nav({className: "navigation-controls"}),
+          AddressBar({onNavigate: this.onNavigate,
+                      uri: this.state.uri}),
+          DOM.nav({className: "display-controls"})
+        ]),
+        Browser({uri: this.state.uri,
+                 onLocationChange: this.onNavigate,
+                 onTitleChange: this.onTitleChange})
+      ]
+    });
   }
 })
 exports.App = App;
 
 
-React.renderComponent(App(), document.body);
+React.renderComponent(App(), document.querySelector("body"));
