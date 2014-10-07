@@ -1,5 +1,40 @@
-html {
+:root {
   -moz-appearance: dialog;
   width: 100%;
   height: 100%;
+  display: flex;
+}
+
+body
+{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+}
+
+
+.column
+{
+  display: flex;
+  flex-flow: column;
+  flex: auto;
+}
+
+.row
+{
+  display: flex;
+  flex-flow: row;
+  flex: auto;
+}
+
+.browser
+{
+  flex: 1;
+  border: none;
+}
+
+.nil
+{
+  display: none;
 }
