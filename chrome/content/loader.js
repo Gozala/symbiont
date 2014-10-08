@@ -5,7 +5,7 @@
 "use strict";
 
 var { Loader } = Components.utils.import("resource://gre/modules/commonjs/toolkit/loader.js", {});
-const loader = Loader.Loader({
+var loader = Loader.Loader({
   id: "symbiont",
   isNative: true,
   prefixURI: "resource://symbiont/chrome/content/",

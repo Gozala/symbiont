@@ -34,6 +34,20 @@ pref("devtools.debugger.prompt-connection", false);
 
 // Enable mozbrowser for iframe
 pref("dom.mozBrowserFramesEnabled", true);
+pref("dom.ipc.browser_frames.oop_by_default", false);
+pref("network.disable.ipc.security", true);
+
+//pref("dom.ipc.tabs.disabled", false);
+//pref("dom.ipc.processCount", 1);
+//pref("dom.ipc.plugins.enabled", true);
+//pref("dom.ipc.content.nice", 1);
+//pref("dom.ipc.tabs.disabled", false);
+//pref("dom.ipc.tabs.nested.enabled", true);
+//pref("dom.ipc.reuse_parent_app", true);
+//pref("dom.ipc.plugins.enabled", true);
+//pref("dom.ipc.processPrelaunch.enabled", true);
+//pref("dom.ipc.plugins.enabled.i386", true);
+//pref("dom.ipc.plugins.enabled.x86_64", true);
 
 // Disable titlebar
 pref("browser.tabs.drawInTitlebar", true);

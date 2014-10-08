@@ -19,10 +19,12 @@ var Browser = React.createClass({
     frame.setAttribute("name", "symbiont");
     frame.setAttribute("src", this.state.uri);
 
-    frame.setAttribute("mozallowfullscreen", true);
     frame.setAttribute("mozbrowser", true);
+    // TODO: For whatever reason making mozbrowser iframe remote
+    // causes following error:
+    // NeckoParent::AllocPHttpChannelParent: FATAL error: App does not have permission: KILLING CHILD PROCESS
+    // Disable remoting for now.
     //frame.setAttribute("remote", true);
-    frame.setAttribute("mozasyncpanzoom", true);
 
     frame.addEventListener("mozbrowserloadstart", this.onPageLoadStart);
     frame.addEventListener("mozbrowserloadend", this.onPageLoadEnd);
@@ -213,10 +215,10 @@ var App = React.createClass({
               DOM.button({id: "title-bar-max", className: "nil"})
             ]),
           ]),
-          DOM.nav({className: "navigation-controls"}),
+          DOM.nav({className: "navigation-controls title-bar"}),
           AddressBar({onNavigate: this.onNavigate,
                       uri: this.state.uri}),
-          DOM.nav({className: "display-controls"})
+          DOM.nav({className: "display-controls title-bar"})
         ]),
         Browser({uri: this.state.uri,
                  onLocationChange: this.onNavigate,
