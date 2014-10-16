@@ -1,6 +1,6 @@
 {
   "name": "symbiont",
-  "description": "Browser that works in symbiosis with your work flow",
+  "description": "Experimental browser that works in symbiosis with your work flow",
   "version": "0.0.0",
   "keywords": [
     "symbiont",
@@ -18,8 +18,8 @@
     "url": "http://github.com/Gozala/symbiont/issues/"
   },
   "scripts": {
-    "start": "open -n -a FirefoxNightly --args -app $(pwd)/application.ini",
-    "debug": "open -n -a FirefoxNightly --args -app $(pwd)/application.ini -debug 6000"
+    "start": "/Applications/FirefoxNightly.app/Contents/MacOS/firefox -app $(pwd)/node_modules/firebox/application.ini $(pwd)",
+    "debug": "/Applications/FirefoxNightly.app/Contents/MacOS/firefox -app $(pwd)/node_modules/firebox/application.ini $(pwd) -debugger 6000"
   },
   "licenses": [
     {
@@ -31,5 +31,37 @@
   "dependencies": {
     "immutable": "^2.0.17",
     "react": "^0.11.2"
+  },
+  "devDependencies": {
+    "firebox": "0.0.0"
+  },
+  "main": "./main.js",
+  "launchPath": "./index.html",
+  "preferences": {
+    "browser.dom.window.dump.enabled": true,
+    "javascript.options": {
+      "showInConsole": true,
+      "strict": false
+    },
+    "nglayout.debug": {
+      "disable_xul_cache": true,
+      "disable_xul_fastload": true
+    },
+    "full-screen-api.enabled": true,
+    "dom.indexedDB": {
+      "enabled": true,
+      "warningQuota": 50
+    },
+    "browser.offline-apps.notify": true,
+    "browser.cache.offline.enable": true,
+    "offline-apps.allow_by_default": true,
+    "dom.mozTCPSocket.enabled": true,
+    "general.smoothScroll": true,
+    "dom.mozBrowserFramesEnabled": true,
+    "dom.ipc.browser_frames.oop_by_default": false,
+    "network.disable.ipc.security": true,
+    "browser.tabs.drawInTitlebar": true,
+    "ui.dragThresholdX": 25,
+    "ui.dragThresholdY": 25
   }
 }

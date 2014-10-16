@@ -20,8 +20,8 @@ var Window = React.createClass({
     return window.fullScreen
   },
   getInitialState: function() {
-    var size = prefs.get(this.sizeKey, this.getWindowSize()).split(" x ")
-    var position = prefs.get(this.positionKey, this.getWindowPosition()).split(",")
+    var size = prefs.get(this.sizeKey, "400 x 300").split(" x ")
+    var position = prefs.get(this.positionKey, "10,10").split(",")
     var isFullScreen = prefs.get(this.fullScreenKey, this.getWindowFullScreen())
     return {width: size[0],
             height: size[1],

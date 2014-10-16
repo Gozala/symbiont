@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react/dist/react")
-var DOM = React.DOM;
+var DOM = React.DOM
 var Window = require("./window").Window
 
 
@@ -10,55 +10,55 @@ var Browser = React.createClass({
     return this.getDOMNode().querySelector("iframe")
   },
   componentWillMount: function() {
-    this.setState({ uri: this.props.uri });
+    this.setState({ uri: this.props.uri })
   },
   componentDidMount: function() {
-    var container = this.getDOMNode();
-    var frame = document.createElement("iframe");
-    frame.setAttribute("class", "browser");
-    frame.setAttribute("name", "symbiont");
-    frame.setAttribute("src", this.state.uri);
+    var container = this.getDOMNode()
+    var frame = document.createElement("iframe")
+    frame.setAttribute("class", "browser")
+    frame.setAttribute("name", "symbiont")
+    frame.setAttribute("src", this.state.uri)
 
-    frame.setAttribute("mozbrowser", true);
+    frame.setAttribute("mozbrowser", true)
     // TODO: For whatever reason making mozbrowser iframe remote
     // causes following error:
     // NeckoParent::AllocPHttpChannelParent: FATAL error: App does not have permission: KILLING CHILD PROCESS
     // Disable remoting for now.
-    //frame.setAttribute("remote", true);
+    //frame.setAttribute("remote", true)
 
-    frame.addEventListener("mozbrowserloadstart", this.onPageLoadStart);
-    frame.addEventListener("mozbrowserloadend", this.onPageLoadEnd);
-    frame.addEventListener("mozbrowserclose", this.onPageClose);
-    frame.addEventListener("mozbrowseropenwindow", this.onPageOpen);
-    frame.addEventListener("mozbrowserasyncscroll", this.onPageScroll);
-    frame.addEventListener("mozbrowsererror", this.onPageError);
-    frame.addEventListener("mozbrowsershowmodalprompt", this.onPageDialog);
+    frame.addEventListener("mozbrowserloadstart", this.onPageLoadStart)
+    frame.addEventListener("mozbrowserloadend", this.onPageLoadEnd)
+    frame.addEventListener("mozbrowserclose", this.onPageClose)
+    frame.addEventListener("mozbrowseropenwindow", this.onPageOpen)
+    frame.addEventListener("mozbrowserasyncscroll", this.onPageScroll)
+    frame.addEventListener("mozbrowsererror", this.onPageError)
+    frame.addEventListener("mozbrowsershowmodalprompt", this.onPageDialog)
 
-    frame.addEventListener("mozbrowserlocationchange", this.onLocationChange);
-    frame.addEventListener("mozbrowsericonchange", this.onIconChange);
-    frame.addEventListener("mozbrowsertitlechange", this.onTitleChange);
+    frame.addEventListener("mozbrowserlocationchange", this.onLocationChange)
+    frame.addEventListener("mozbrowsericonchange", this.onIconChange)
+    frame.addEventListener("mozbrowsertitlechange", this.onTitleChange)
 
-    frame.addEventListener("mozbrowsercontextmenu", this.onContextMenu);
+    frame.addEventListener("mozbrowsercontextmenu", this.onContextMenu)
 
 
-    container.appendChild(frame);
+    container.appendChild(frame)
   },
   componentWillUnmount: function() {
-    var frame = this.getFrameNode();
+    var frame = this.getFrameNode()
 
-    frame.removeEventListener("mozbrowserloadstart", this.onPageLoadStart);
-    frame.removeEventListener("mozbrowserloadend", this.onPageLoadEnd);
-    frame.removeEventListener("mozbrowserclose", this.onPageClose);
-    frame.removeEventListener("mozbrowseropenwindow", this.onPageOpen);
-    frame.removeEventListener("mozbrowserasyncscroll", this.onPageScroll);
-    frame.removeEventListener("mozbrowsererror", this.onPageError);
-    frame.removeEventListener("mozbrowsershowmodalprompt", this.onPageDialog);
+    frame.removeEventListener("mozbrowserloadstart", this.onPageLoadStart)
+    frame.removeEventListener("mozbrowserloadend", this.onPageLoadEnd)
+    frame.removeEventListener("mozbrowserclose", this.onPageClose)
+    frame.removeEventListener("mozbrowseropenwindow", this.onPageOpen)
+    frame.removeEventListener("mozbrowserasyncscroll", this.onPageScroll)
+    frame.removeEventListener("mozbrowsererror", this.onPageError)
+    frame.removeEventListener("mozbrowsershowmodalprompt", this.onPageDialog)
 
-    frame.removeEventListener("mozbrowserlocationchange", this.onLocationChange);
-    frame.removeEventListener("mozbrowsericonchange", this.onIconChange);
-    frame.removeEventListener("mozbrowsertitlechange", this.onTitleChange);
+    frame.removeEventListener("mozbrowserlocationchange", this.onLocationChange)
+    frame.removeEventListener("mozbrowsericonchange", this.onIconChange)
+    frame.removeEventListener("mozbrowsertitlechange", this.onTitleChange)
 
-    frame.removeEventListener("mozbrowsercontextmenu", this.onContextMenu);
+    frame.removeEventListener("mozbrowsercontextmenu", this.onContextMenu)
   },
 
   onPageLoadStart: function(event) {
@@ -101,7 +101,7 @@ var Browser = React.createClass({
     if (handler) {
       handler(event)
     }
-    // console.error(event);
+    // console.error(event)
   },
   onPageDialog: function(event) {
     var handler = this.props.onPageDialog
@@ -140,19 +140,19 @@ var Browser = React.createClass({
   },
 
   componentWillReceiveProps: function(props) {
-    this.setState({uri: props.uri});
+    this.setState({uri: props.uri})
   },
   shouldComponentUpdate: function(nextProps, nextState) {
     return this.state.uri !== nextProps.uri
   },
   componentDidUpdate: function(pastProps, pastState) {
-    var frame = this.getFrameNode();
-    frame.setAttribute("src", this.state.uri);
+    var frame = this.getFrameNode()
+    frame.setAttribute("src", this.state.uri)
   },
   render: function() {
-    return DOM.section({ className: "column" });
+    return DOM.section({ className: "column" })
   }
-});
+})
 exports.Browser = Browser
 
 var AddressBar = React.createClass({
@@ -171,11 +171,11 @@ var AddressBar = React.createClass({
   },
 
   onChange: function(event) {
-    this.setState({input: event.target.value});
+    this.setState({input: event.target.value})
   },
   onKey: function(event) {
     if (event.keyCode === 13)
-      this.navigateTo(this.state.input);
+      this.navigateTo(this.state.input)
   },
   render: function() {
     return DOM.input({
@@ -184,10 +184,10 @@ var AddressBar = React.createClass({
       value: this.state.input,
       onChange: this.onChange,
       onKeyDown: this.onKey
-    });
+    })
   }
-});
-exports.AddressBar = AddressBar;
+})
+exports.AddressBar = AddressBar
 
 var App = React.createClass({
   getInitialState: function() {
@@ -201,7 +201,7 @@ var App = React.createClass({
   onNavigate: function(input) {
     var uri = /^\S+\:/.test(input) ? input : "http://" + input
     this.setState({title: this.state.title,
-                   uri: uri});
+                   uri: uri})
   },
   render: function() {
     return Window({
@@ -224,10 +224,10 @@ var App = React.createClass({
                  onLocationChange: this.onNavigate,
                  onTitleChange: this.onTitleChange})
       ]
-    });
+    })
   }
 })
-exports.App = App;
+exports.App = App
 
 
-React.renderComponent(App(), document.querySelector("body"));
+React.renderComponent(App(), document.querySelector("#root"))

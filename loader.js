@@ -13,7 +13,7 @@ var loader = Loader.Loader({
   name: "symbiont",
   paths: {
     "": "resource://symbiont/node_modules/",
-    "react": "resource://symbiont/node_modules/react/dist/",
+    "react/": "resource://symbiont/node_modules/react/dist/",
     "symbiont/": "resource://symbiont/chrome/content/",
     "sdk/": "resource://gre/modules/commonjs/sdk/",
     "toolkit/": "resource://gre/modules/commonjs/toolkit/",
@@ -37,6 +37,6 @@ var loader = Loader.Loader({
     }
   }
 });
-const main = Loader.Module("symbiont/main", "resource://symbiont/chrome/content/main.js");
-const require = Loader.Require(loader, main);
+var main = Loader.Module("symbiont/main", "resource://symbiont/chrome/content/main.js");
+var require = Loader.Require(loader, main);
 require("./main.js")
