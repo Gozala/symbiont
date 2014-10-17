@@ -16,15 +16,21 @@ var Browser = React.createClass({
     var container = this.getDOMNode()
     var frame = document.createElement("iframe")
     frame.setAttribute("class", "browser")
-    frame.setAttribute("name", "symbiont")
+    frame.setAttribute("name", "browser")
     frame.setAttribute("src", this.state.uri)
 
+    frame.setAttribute("mozallowfullscreen", "true");
     frame.setAttribute("mozbrowser", true)
+    frame.setAttribute("mozapp", "symbiont")
+    frame.setAttribute("expecting-system-message",
+                       "expecting-system-message")
     // TODO: For whatever reason making mozbrowser iframe remote
     // causes following error:
     // NeckoParent::AllocPHttpChannelParent: FATAL error: App does not have permission: KILLING CHILD PROCESS
     // Disable remoting for now.
-    //frame.setAttribute("remote", true)
+    frame.setAttribute("remote", true)
+    frame.setAttribute("mozapptype", "homescreen")
+    frame.setAttribute("mozasyncpanzoom", true);
 
     frame.addEventListener("mozbrowserloadstart", this.onPageLoadStart)
     frame.addEventListener("mozbrowserloadend", this.onPageLoadEnd)
@@ -229,5 +235,7 @@ var App = React.createClass({
 })
 exports.App = App
 
-
-React.renderComponent(App(), document.querySelector("#root"))
+var app = App()
+document.querySelector("#ui").addEventListener("load", function(event) {
+  React.renderComponent(app, event.target.body)
+}, true)

@@ -36,7 +36,7 @@
     "firebox": "0.0.0"
   },
   "main": "./main.js",
-  "launchPath": "./index.html",
+  "launchPath": "./window.xhtml",
   "preferences": {
     "browser.dom.window.dump.enabled": true,
     "javascript.options": {
@@ -62,6 +62,14 @@
     "network.disable.ipc.security": true,
     "browser.tabs.drawInTitlebar": true,
     "ui.dragThresholdX": 25,
-    "ui.dragThresholdY": 25
+    "ui.dragThresholdY": 25,
+
+    "network.cookie.cookieBehavior": 0,
+    "layers.offmainthreadcomposition.enabled": true,
+    "layers.offmainthreadcomposition.async-animations": true,
+
+
+    "dom.mozSettings.enabled": true,
+    "dom.mozPermissionSettings.enabled": true
   }
 }
