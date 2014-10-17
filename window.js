@@ -51,6 +51,10 @@ var Window = React.createClass({
                      isFullScreen: this.state.isFullScreen})
     //}
   },
+  onKeyDown: function(event) {
+    if (this.props.onKeyDown)
+      this.props.onKeyDown(event)
+  },
   onPositionChange: function() {
     //if (!this.state.isFullScreen) {
       var position = this.getWindowPosition()
@@ -92,7 +96,8 @@ var Window = React.createClass({
     window.removeEventListener("pagehide", this.onPositionChange)
   },
   render: function() {
-    return DOM.div({className: "column"}, [
+    return DOM.div({className: "column",
+                    onKeyDown: this.onKeyDown}, [
       DOM.ul({className: "info nil"}, [
         DOM.li("Size:", this.state.width + " x " + this.state.height),
         DOM.li("Position:", this.state.position),

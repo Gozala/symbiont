@@ -4,13 +4,36 @@ var React = require("react/dist/react")
 var DOM = React.DOM
 var Window = require("./window").Window
 
+var conj = function(source, extension) {
+  var result = {}
+  if (source) {
+    Object.keys(source).forEach(function(key) {
+      result[key] = source[key]
+    })
+  }
+  Object.keys(extension).forEach(function(key) {
+    result[key] = extension[key]
+  })
+  return result
+}
+
+var assoc = function(source, key, value) {
+  var result = {}
+  if (source) {
+    Object.keys(source).forEach(function(key) {
+      result[key] = source[key]
+    })
+  }
+  result[key] = value
+  return result
+}
 
 var Browser = React.createClass({
   getFrameNode: function() {
     return this.getDOMNode().querySelector("iframe")
   },
   componentWillMount: function() {
-    this.setState({ uri: this.props.uri })
+    this.setState(assoc(null, "uri", this.props.uri))
   },
   componentDidMount: function() {
     var container = this.getDOMNode()
@@ -117,7 +140,7 @@ var Browser = React.createClass({
     // console.log(event)
   },
   onLocationChange: function(event) {
-    this.setState({ uri: event.detail })
+    this.setState(assoc(this.state, "uri", event.detail))
     var handler = this.props.onLocationChange
     if (handler) {
       handler(this.state.uri)
@@ -154,6 +177,8 @@ var Browser = React.createClass({
   componentDidUpdate: function(pastProps, pastState) {
     var frame = this.getFrameNode()
     frame.setAttribute("src", this.state.uri)
+    if (this.props.focused)
+      frame.focus()
   },
   render: function() {
     return DOM.section({ className: "column" })
@@ -168,7 +193,13 @@ var AddressBar = React.createClass({
 
   componentWillReceiveProps: function(props) {
     if (props.uri !== this.state.uri) {
-      this.setState({ input:props.uri})
+      this.setState(assoc(this.state, "input", props.uri))
+    }
+  },
+
+  componentDidUpdate: function() {
+    if (this.props.focused) {
+      this.getDOMNode().focus()
     }
   },
 
@@ -198,44 +229,68 @@ exports.AddressBar = AddressBar
 var App = React.createClass({
   getInitialState: function() {
     return {title: "Symbiont",
-            uri: "about:blank"}
+            uri: "about:blank",
+            focused: "address-bar"}
+  },
+  onSelectAddressBar: function() {
+    this.setState(assoc(this.state, "focused", "address-bar"))
   },
   onTitleChange: function(title) {
-    this.setState({title: title,
-                   uri: this.state.uri})
+    this.setState(assoc(this.state, "title", title))
   },
   onNavigate: function(input) {
     var uri = /^\S+\:/.test(input) ? input : "http://" + input
-    this.setState({title: this.state.title,
-                   uri: uri})
+    this.setState(conj(this.state, {uri: uri, focused: "browser"}))
+  },
+  onKeydown: function(event) {
+    var keys = []
+    if (event.metaKey) keys.push("meta")
+    if (event.ctrlKey) keys.push("ctrl")
+    if (event.shiftKey) keys.push("shift")
+    if (event.altKey) keys.push("alt")
+    if (["Alt", "Ctrl", "Meta", "Shift"].indexOf(event.key) < 0)
+      keys.push(event.key)
+
+    var combo = this.props.keyMap && this.props.keyMap[keys.join("-")]
+    if (combo)
+      combo.call(this, event)
   },
   render: function() {
     return Window({
-      title: this.state.title,
-      children: [
-        DOM.menu({id: "title-bar"}, [
-          DOM.menu({id: "title-bar-buttons"}, [
-            DOM.menu({id: "title-bar-button-box"}, [
-              DOM.button({id: "title-bar-close", className: "nil"}),
-              DOM.button({id: "title-bar-min", className: "nil"}),
-              DOM.button({id: "title-bar-max", className: "nil"})
-            ]),
+        title: this.state.title,
+        onKeyDown: this.onKeydown
+    }, [
+      DOM.menu({id: "title-bar"}, [
+        DOM.menu({id: "title-bar-buttons"}, [
+          DOM.menu({id: "title-bar-button-box"}, [
+            DOM.button({id: "title-bar-close", className: "nil"}),
+            DOM.button({id: "title-bar-min", className: "nil"}),
+            DOM.button({id: "title-bar-max", className: "nil"})
           ]),
-          DOM.nav({className: "navigation-controls title-bar"}),
-          AddressBar({onNavigate: this.onNavigate,
-                      uri: this.state.uri}),
-          DOM.nav({className: "display-controls title-bar"})
         ]),
-        Browser({uri: this.state.uri,
-                 onLocationChange: this.onNavigate,
-                 onTitleChange: this.onTitleChange})
-      ]
-    })
+        DOM.nav({className: "navigation-controls title-bar"}),
+        AddressBar({onNavigate: this.onNavigate,
+                    uri: this.state.uri,
+                    focused: this.state.focused === "address-bar"}),
+        DOM.nav({className: "display-controls title-bar"})
+      ]),
+      Browser({uri: this.state.uri,
+               focused: this.state.focused === "browser",
+               onLocationChange: this.onNavigate,
+               onTitleChange: this.onTitleChange})
+    ])
   }
 })
 exports.App = App
 
-var app = App()
+var app = App({
+  keyMap: {
+    "meta-l": function() {
+      this.onSelectAddressBar()
+    }
+  }
+})
+
 document.querySelector("#ui").addEventListener("load", function(event) {
   React.renderComponent(app, event.target.body)
 }, true)
