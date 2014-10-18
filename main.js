@@ -51,7 +51,7 @@ var Browser = React.createClass({
     // causes following error:
     // NeckoParent::AllocPHttpChannelParent: FATAL error: App does not have permission: KILLING CHILD PROCESS
     // Disable remoting for now.
-    // frame.setAttribute("remote", true)
+    //frame.setAttribute("remote", true)
     //frame.setAttribute("mozapptype", "homescreen")
     //frame.setAttribute("mozasyncpanzoom", true);
 
@@ -176,6 +176,14 @@ var Browser = React.createClass({
   },
   componentDidUpdate: function(pastProps, pastState) {
     var frame = this.getFrameNode()
+    // Internal URIS can't load in remote iframe
+    if (this.props.uri.indexOf("about:") === 0 ||
+        this.props.uri.indexOf("chrome:") === 0 ||
+        this.props.uri.indexOf("resource:") === 0)
+        frame.setAttribute("remote", false)
+    else
+        frame.setAttribute("remote", true)
+
     frame.setAttribute("src", this.state.uri)
     if (this.props.focused)
       frame.focus()

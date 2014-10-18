@@ -71,6 +71,8 @@ var Window = React.createClass({
     //window.addEventListener("fullscreen", this.onFullScreen)
     window.addEventListener("resize", this.onResize)
     window.addEventListener("pagehide", this.onPositionChange)
+    window.document.addEventListener("keydown", this.onKeyDown)
+    this.getDOMNode().addEventListener("keydown", this.onKeyDown)
 
     console.log("state >> ", this.state)
 
