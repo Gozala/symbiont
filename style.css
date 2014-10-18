@@ -1,14 +1,12 @@
-/*
-:root {
-  -moz-appearance: none;
-  -moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
-  -moz-window-dragging: drag;
-}
-*/
+@import "titlebar.css";
 
 :root {
   background: -moz-dialog;
   -moz-appearance: dialog;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 
@@ -61,81 +59,21 @@ body
   display: none;
 }
 
-.address-bar
+.title-bar
 {
-  border-radius: 4px;
-  border: none;
-  flex: 4;
-  font-size: 13px;
-  padding: 5px 15px;
+  -moz-appearance: -moz-window-titlebar;
 }
 
-.navigation-controls
-{
-  flex: 2;
-}
-
-.display-controls
-{
-  flex: 3;
-}
-
-#title-bar
-{
-  -moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
-
-  -moz-window-dragging: drag;
-}
-
-/*
-If Drawing into titlebar is disabled (like now because we can't get
-window dragging working for html documents) we add account OS
-titlebar into our styling.
-*/
-:root:not([chromemargin]) #title-bar
-{
-  margin-top: -18px;
-  padding-top: 11px;
-
-}
-
-#title-bar
+.navigation-bar
 {
   display: flex;
-  align-items: center;
-  -moz-appearance: -moz-window-titlebar;
-  height: 40px;
-  margin: 0;
-  padding: 0;
 }
 
-#title-bar-buttons
+.address-bar
 {
-  width: 70px;
-  padding: 0;
-  margin: 0;
-}
-
-#title-bar-button-box {
-  -moz-appearance: -moz-window-button-box;
-}
-
-#title-bar-min {
-   -moz-appearance: -moz-window-button-minimize;
-}
-#title-bar-max {
-   -moz-appearance: -moz-window-button-maximize;
- }
-
-:root[sizemode="maximized"] #title-bar-max {
-   -moz-appearance: -moz-window-button-restore;
- }
-
-#title-bar-close {
-   -moz-appearance: -moz-window-button-close;
-}
-
-input
-{
-  -moz-window-dragging: no-drag;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 5px 15px;
+  flex: 1;
 }

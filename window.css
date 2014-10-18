@@ -1,6 +1,8 @@
+@import "titlebar.css";
+
 :root {
   background: -moz-dialog;
-  -moz-appearance: dialog;
+  -moz-appearance: none;
 }
 
 
@@ -10,24 +12,19 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
   margin: 0;
 }
 
 
-iframe,
-browser
+.browser
 {
   flex: 1;
   border: none;
   margin: 0;
+
+  margin-top: -40px
 }
 
-#title-bar
-{
-  -moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
-  -moz-window-dragging: drag;
-}
 
 /*
 If Drawing into titlebar is disabled (like now because we can't get
@@ -41,24 +38,26 @@ titlebar into our styling.
 
 }
 
-#title-bar
+.title-bar
 {
-  display: flex;
+  -moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
+  display: -moz-box;
+  -moz-window-dragging: drag;
+
   align-items: center;
-  -moz-appearance: -moz-window-titlebar;
   height: 40px;
   margin: 0;
   padding: 0;
+
+  pointer-events: none;
 }
 
-#title-bar-buttons
+.titlebar-content
 {
-  width: 70px;
-  padding: 12px 14px;
-  margin: 0;
+  display: flex;
 }
 
-#title-bar-button-box {
+.title-bar-button-box {
   -moz-appearance: -moz-window-button-box;
 }
 
@@ -75,4 +74,30 @@ titlebar into our styling.
 
 #title-bar-close {
    -moz-appearance: -moz-window-button-close;
+}
+
+
+.window-controls,
+.navigation-controls,
+.display-controls,
+{
+  -moz-window-dragging: drag;
+}
+
+.textbox-input-box
+{
+  width: 100%;
+  height: 100%;
+}
+
+.navigation-bar
+{
+  -moz-window-dragging: no-drag;
+  pointer-events: none;
+  display: hidden;
+}
+
+.nil
+{
+  display: none;
 }

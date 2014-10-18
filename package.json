@@ -48,6 +48,8 @@
       "disable_xul_fastload": true
     },
     "full-screen-api.enabled": true,
+    "dom.storage.default_quota": 5120,
+    "dom.storage.enabled": true,
     "dom.indexedDB": {
       "enabled": true,
       "warningQuota": 50

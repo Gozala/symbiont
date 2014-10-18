@@ -44,16 +44,16 @@ var Browser = React.createClass({
 
     frame.setAttribute("mozallowfullscreen", "true");
     frame.setAttribute("mozbrowser", true)
-    frame.setAttribute("mozapp", "symbiont")
-    frame.setAttribute("expecting-system-message",
-                       "expecting-system-message")
+    //frame.setAttribute("mozapp", "symbiont")
+    //frame.setAttribute("expecting-system-message",
+    //                   "expecting-system-message")
     // TODO: For whatever reason making mozbrowser iframe remote
     // causes following error:
     // NeckoParent::AllocPHttpChannelParent: FATAL error: App does not have permission: KILLING CHILD PROCESS
     // Disable remoting for now.
-    frame.setAttribute("remote", true)
-    frame.setAttribute("mozapptype", "homescreen")
-    frame.setAttribute("mozasyncpanzoom", true);
+    // frame.setAttribute("remote", true)
+    //frame.setAttribute("mozapptype", "homescreen")
+    //frame.setAttribute("mozasyncpanzoom", true);
 
     frame.addEventListener("mozbrowserloadstart", this.onPageLoadStart)
     frame.addEventListener("mozbrowserloadend", this.onPageLoadEnd)
@@ -260,19 +260,14 @@ var App = React.createClass({
         title: this.state.title,
         onKeyDown: this.onKeydown
     }, [
-      DOM.menu({id: "title-bar"}, [
-        DOM.menu({id: "title-bar-buttons"}, [
-          DOM.menu({id: "title-bar-button-box"}, [
-            DOM.button({id: "title-bar-close", className: "nil"}),
-            DOM.button({id: "title-bar-min", className: "nil"}),
-            DOM.button({id: "title-bar-max", className: "nil"})
-          ]),
-        ]),
-        DOM.nav({className: "navigation-controls title-bar"}),
-        AddressBar({onNavigate: this.onNavigate,
-                    uri: this.state.uri,
-                    focused: this.state.focused === "address-bar"}),
-        DOM.nav({className: "display-controls title-bar"})
+      DOM.menu({className: "title-bar"}, [
+        DOM.menu({id: "title-bar-buttons", className: "window-controls" }),
+        DOM.nav({className: "navigation-controls"}),
+        DOM.nav({className: "navigation-bar"}, [
+          AddressBar({onNavigate: this.onNavigate,
+                      uri: this.state.uri,
+                      focused: this.state.focused === "address-bar"}) ]),
+        DOM.nav({className: "display-controls"})
       ]),
       Browser({uri: this.state.uri,
                focused: this.state.focused === "browser",

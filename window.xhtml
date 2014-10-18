@@ -13,21 +13,21 @@
 
       width="300"
       height="400">
-  <head>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="./window.css"/>
-  </head>
-  <xul:titlebar id="title-bar">
-    <menu id="title-bar-buttons">
-      <menu id="title-bar-button-box">
-        <button id="title-bar-close" class="nil"/>
-        <button id="title-bar-min" class="nil"/>
-        <button id="title-bar-max" class="nil"/>
-      </menu>
-    </menu>
-  </xul:titlebar>
-  <body>
-    <xul:iframe id="ui" src="index.html" transparent="transparent" type="chrome"></xul:iframe>
-    <script>require("./main")</script>
-  </body>
+  <link rel="stylesheet" href="./window.css"/>
+  <xul:vbox class="title-bar">
+    <xul:hbox flex="1" class="titlebar-content">
+      <xul:vbox class="window-controls">
+        <xul:hbox class="title-bar-button-box">
+          <button id="title-bar-close" class="nil"/>
+          <button id="title-bar-min" class="nil"/>
+          <button id="title-bar-max" class="nil"/>
+        </xul:hbox>
+      </xul:vbox>
+      <nav class="navigation-controls" />
+      <xul:textbox class="navigation-bar" />
+      <nav class="display-controls" />
+    </xul:hbox>
+  </xul:vbox>
+  <xul:iframe flex="1" id="ui" class="browser" src="index.html" transparent="transparent" type="chrome"></xul:iframe>
+  <script>require("./main")</script>
 </xul:window>

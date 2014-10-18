@@ -99,9 +99,9 @@ var Window = React.createClass({
     return DOM.div({className: "column",
                     onKeyDown: this.onKeyDown}, [
       DOM.ul({className: "info nil"}, [
-        DOM.li("Size:", this.state.width + " x " + this.state.height),
-        DOM.li("Position:", this.state.position),
-        DOM.li("Fullscreen:", this.state.isFullScreen)
+        DOM.li({}, "Size:", this.state.width + " x " + this.state.height),
+        DOM.li({}, "Position:", this.state.position),
+        DOM.li({}, "Fullscreen:", this.state.isFullScreen)
       ]),
       this.props.children
     ])
