@@ -1,16 +1,35 @@
 @import "titlebar.css";
 
+* {
+  -moz-appearance: none;
+  background-color: transparent;
+  box-sizing: content-box;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  font-family: sans-serif;
+  font-size: 12px;
+  image-rendering: -moz-crisp-edges;
+}
+
+input {
+  font: -moz-field;
+  font-size: 12px;
+  line-height: 22px;
+  vertical-align: bottom;
+  min-width: 0;
+  background: white;
+}
+
+
 :root {
-  background: -moz-dialog;
-  -moz-appearance: dialog;
 }
 
 * {
   box-sizing: border-box;
 }
 
-
-body {
+#root {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -19,20 +38,6 @@ body {
   display: flex;
   -moz-window-dragging: drag;
 }
-
-#root *
-{
-  -moz-window-dragging: no-drag;
-}
-
-body
-{
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  display: flex;
-}
-
 
 .column
 {
@@ -61,7 +66,7 @@ body
 
 .title-bar
 {
-  -moz-appearance: -moz-window-titlebar;
+
 }
 
 .navigation-bar

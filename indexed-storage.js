@@ -1,3 +1,4 @@
+define(function(require, exports, module) {
 var request2promise = function(request) {
   return new Promise(function(resolve, reject) {
     request.onsuccess = function() {
@@ -71,3 +72,4 @@ IndexedStorage.prototype.clear = function() {
 }
 
 exports.IndexedStorage = IndexedStorage
+});

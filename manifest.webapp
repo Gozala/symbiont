@@ -1,0 +1,25 @@
+{
+  "name": "Symbiont",
+  "description": "Experimental browser that works in symbiosis with your work flow",
+  "launch_path": "/index.html",
+  "icons": {
+    "512": "/img/icon-512.png",
+    "128": "/img/icon-128.png"
+  },
+  "developer": {
+    "name": "Irakli Gozalishvili",
+    "url": "https://github.com/gozala/symbiont"
+  },
+  "default_locale": "en",
+  "type": "privileged",
+  "origin": "app://symbiont.com",
+  "permissions": {
+    "browser": {},
+    "desktop-notification": {},
+    "geolocation": {},
+    "storage": {},
+    "systemXHR": {},
+    "attention": {},
+    "backgroundservice": {}
+  }
+}
